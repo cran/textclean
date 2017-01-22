@@ -17,7 +17,34 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-textclean 0.1.0 -
+
+textclean 0.2.1 - 0.3.0
+----------------------------------------------------------------
+
+BUG FIXES
+
+NEW FEATURES
+
+* The `replace_emoticon`, `replace_grade` and `replace_rating` functions have 
+  been moved from the **sentimentr** package to **textclean** as these are 
+  cleaning functions.  This makes the functions more modular and generalizable 
+  to all types of text cleaning.  These functions are still imported and 
+  exported by **sentimentr**.
+  
+* `replace_html` added to remove html tags and repalce symbols with appropriate
+  ASCII symbols.
+  
+* `add_missing_endmarks` added to detect missing endmarks and replace with the 
+  desired symbol.
+
+IMPROVEMENTS
+
+* `replace_number` now uses the *english* package making it faster and more 
+  maintainable.  In addition, the function now handles decimal places as well.
+
+
+
+textclean 0.1.0 - 0.2.0
 ----------------------------------------------------------------
 
 BUG FIXES
@@ -35,11 +62,6 @@ NEW FEATURES
 
 * `filter_element` added to exclude matching elements from a vector.
 
-MINOR FEATURES
-
-IMPROVEMENTS
-
-CHANGES
 
 
 textclean 0.0.1 
