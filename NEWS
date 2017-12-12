@@ -18,6 +18,48 @@ And constructed with the following guidelines:
 
 
 
+textclean 0.4.0 - 0.5.1
+----------------------------------------------------------------
+
+BUG FIXES
+
+* `replace_grade` did not use `fixed = TRUE` for its call to `mgsub`.  This could
+  result in the plus signs being interpreted as meta-characters.  This has been 
+  corrected.
+
+NEW FEATURES
+
+* `replace_names` added to remove/replace common first and last names from text 
+  data.
+  
+* `make_plural` added to make a vector of singular noun forms plural.
+
+* `replace_emoji` and `replace_emoji_identifier` added for replacing emojis with
+  text or an identifier token for use in the **sentimentr** package.
+
+MINOR FEATURES
+
+* `mgsub_regex` and `mgsub_fixed` to provide wrappers for `mgsub` that makes
+  their use apparent without setting the `fixed` command.
+  
+* `replace_curly_quote` added to replace curly quotes with straight versions.
+
+IMPROVEMENTS
+
+* `replace_non_ascii` now uses `stringi::stri_trans_general` to coerce more 
+  non-ASCII characters to ASCII format.
+  
+* `check_text` now checks for HTML characters/tags.  Thanks to @Peter Gensler
+  for suggesting this (see issue #15). 
+
+CHANGES
+
+* `filter_` functions deprecated in favor of `drop_`/`keep_` versions of filter
+  functions.  This was change was to address the opposite meaning that **dplyr**'s 
+  `filter` has, which retains rows matching a pattern be default.
+
+
+
 textclean 0.3.1
 ----------------------------------------------------------------
 

@@ -1,8 +1,9 @@
 #' Replace HTML Markup
 #' 
 #' Replaces HTML markup.  The angle braces are removed and the HTML symbol 
-#' markup is replaced with equivalent symbols.  Replacements for symbols are as 
-#' follows:
+#' markup is replaced with equivalent symbols.  
+#'
+#' @details Replacements for symbols are as follows:
 #' 
 #' \tabular{lr}{
 #'     \bold{html} \tab  \bold{symbol} \cr
@@ -21,8 +22,8 @@
 #' }
 #' 
 #' @param x The text variable.
-#' @param symbol lofical.  If code{TRUE} the sybols are retained with appropriate
-#' replacments.  If \code{FALSE} they are removed.
+#' @param symbol logical.  If code{TRUE} the symbols are retained with appropriate
+#' replacements.  If \code{FALSE} they are removed.
 #' @param \ldots Ignored.
 #' @return Returns a vector with HTML markup replaced.
 #' @keywords html

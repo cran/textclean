@@ -1,6 +1,6 @@
 #' Multiple \code{\link[base]{gsub}}
 #' 
-#' A wrapper for \code{\link[base]{gsub}} that takes a vector 
+#' \code{mgsub} - A wrapper for \code{\link[base]{gsub}} that takes a vector 
 #' of search terms and a vector or single value of replacements.
 #' 
 #' @param x A character vector.
@@ -24,6 +24,7 @@
 #' @seealso \code{\link[textclean]{replace_tokens}}
 #' \code{\link[base]{gsub}}
 #' @export
+#' @rdname mgsub
 #' @examples
 #' mgsub(DATA$state, c("it's", "I'm"), c("it is", "I am"))
 #' mgsub(DATA$state, "[[:punct:]]", "PUNC", fixed = FALSE)
@@ -39,7 +40,12 @@ mgsub <- function (x, pattern, replacement, leadspace = FALSE,
         if (length(replacement) != 1) replacement <- replacement[ord]
     }
     if (length(replacement) == 1) replacement <- rep(replacement, length(pattern))
-   
+    if (any(!nzchar(pattern))) {
+        good_apples <- which(nzchar(pattern))  
+        pattern <- pattern[good_apples]
+        replacement <- replacement[good_apples]      
+        warning('Empty pattern found (i.e., `pattern = ""`).\nThis pattern and replacement have been removed.')
+    }
     for (i in seq_along(pattern)){
         x <- gsub(pattern[i], replacement[i], x, fixed = fixed, ...)
     }
@@ -48,7 +54,32 @@ mgsub <- function (x, pattern, replacement, leadspace = FALSE,
     x
 }
 
+#' Multiple \code{\link[base]{gsub}}
+#' 
+#' \code{mgsub_fixed} - An alias for \code{mgsub}.
+#' 
+#' @export
+#' @rdname mgsub
+mgsub_fixed <- mgsub 
 
+#' Multiple \code{\link[base]{gsub}}
+#' 
+#' \code{mgsub_regex} - An wrapper for \code{mgsub} with \code{fixed = FALSE}.
+#' 
+#' @export
+#' @rdname mgsub
+mgsub_regex <- function (x, pattern, replacement, leadspace = FALSE, 
+    trailspace = FALSE, fixed = FALSE, trim = FALSE, order.pattern = fixed, 
+    ...) {
+    
+    mgsub(x = x, pattern = pattern, replacement = replacement, leadspace = leadspace, 
+        trailspace = trailspace, fixed = fixed, trim = trim, order.pattern = order.pattern, 
+        ...
+    )
+    
+}
+    
+    
 spaste <-
 function (terms, trailing = TRUE, leading = TRUE) {
     if (leading) {

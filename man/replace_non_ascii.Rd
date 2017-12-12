@@ -2,9 +2,12 @@
 % Please edit documentation in R/replace_non_ascii.R
 \name{replace_non_ascii}
 \alias{replace_non_ascii}
+\alias{replace_curly_quote}
 \title{Replace Common Non-ASCII Characters}
 \usage{
 replace_non_ascii(x, remove.nonconverted = TRUE, ...)
+
+replace_curly_quote(x, ...)
 }
 \arguments{
 \item{x}{The text variable.}
@@ -15,11 +18,15 @@ deleted from the string.}
 \item{\dots}{ignored.}
 }
 \value{
-Returns a text variable (character sting) with non-ascii characters 
+Returns a text variable (character sting) with non-ASCII characters 
 replaced.
 }
 \description{
-Replaces common non-ASCII characters.
+\code{replace_non_ascii} - Replaces common non-ASCII characters.
+
+\code{replace_curly_quote} - Replaces curly single and doble quotes.  This 
+provides a subset of functionality found in \code{replace_non_ascii} specific 
+to quotes.
 }
 \examples{
 x <- c(
@@ -32,6 +39,12 @@ x
 
 replace_non_ascii(x)
 replace_non_ascii(x, remove.nonconverted = FALSE)
+
+z <- '\\x95He said, \\x93Gross, I am going to!\\x94'
+Encoding(z) <- "latin1"
+z
+
+replace_curly_quote(z)
+replace_non_ascii(z)
 }
 \keyword{ascii}
-
