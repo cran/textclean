@@ -31,14 +31,17 @@ Table of Contents
     -   [Stripping](#stripping)
     -   [Subbing](#subbing)
         -   [Multiple Subs](#multiple-subs)
+        -   [Match, Extract, Operate, Replacement Subs](#match-extract-operate-replacement-subs)
         -   [Stashing Character Pre-Sub](#stashing-character-pre-sub)
     -   [Replacement](#replacement)
         -   [Contractions](#contractions)
-        -   [Emoticons](#emoticons)
         -   [Emojis](#emojis)
+        -   [Emoticons](#emoticons)
         -   [Grades](#grades)
         -   [HTML](#html)
         -   [Incomplete Sentences](#incomplete-sentences)
+        -   [Internet Slang](#internet-slang)
+        -   [Kerning](#kerning)
         -   [Names](#names)
         -   [Non-ASCII Characters](#non-ascii-characters)
         -   [Numbers](#numbers)
@@ -46,6 +49,7 @@ Table of Contents
         -   [Ordinal Numbers](#ordinal-numbers)
         -   [Symbols](#symbols)
         -   [White Space](#white-space)
+        -   [Word Elongation](#word-elongation)
         -   [Tokens](#tokens)
 
 Functions
@@ -75,49 +79,49 @@ table below:
 <td>Multiple <code>gsub</code></td>
 </tr>
 <tr class="even">
+<td><code>fgsub</code></td>
+<td>subbing</td>
+<td>Functional matching replacement <code>gsub</code></td>
+</tr>
+<tr class="odd">
 <td><code>sub_holder</code></td>
 <td>subbing</td>
 <td>Hold a value prior to a <code>strip</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>swap</code></td>
 <td>subbing</td>
 <td>Simultaneously swap patterns 1 &amp; 2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>strip</code></td>
 <td>deletion</td>
 <td>Remove all non word characters</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>drop_empty_row</code></td>
 <td>filter rows</td>
 <td>Remove empty rows</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>drop_row</code>/<code>keep_row</code></td>
 <td>filter rows</td>
 <td>Filter rows matching a regex</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>drop_NA</code></td>
 <td>filter rows</td>
 <td>Remove <code>NA</code> text rows</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>drop_element</code>/<code>keep_element</code></td>
 <td>filter elements</td>
 <td>Filter matching elements from a vector</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_contractions</code></td>
 <td>replacement</td>
 <td>Replace contractions with both words</td>
-</tr>
-<tr class="even">
-<td><code>replace_emoticon</code></td>
-<td>repalcement</td>
-<td>Replace emoticons with word equivalent</td>
 </tr>
 <tr class="odd">
 <td><code>replace_emoji</code></td>
@@ -125,59 +129,79 @@ table below:
 <td>Replace emojis with word equivalent or unique identifier</td>
 </tr>
 <tr class="even">
+<td><code>replace_emoticon</code></td>
+<td>repalcement</td>
+<td>Replace emoticons with word equivalent</td>
+</tr>
+<tr class="odd">
 <td><code>replace_grade</code></td>
 <td>repalcement</td>
 <td>Replace grades (e.g., &quot;A+&quot;) with word equivalent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_html</code></td>
 <td>replacement</td>
 <td>Replace HTML tags and symbols</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_incomplete</code></td>
 <td>replacement</td>
 <td>Replace incomplete sentence end-marks</td>
 </tr>
+<tr class="even">
+<td><code>replace_internet_slang</code></td>
+<td>replacment</td>
+<td>Replace Internet slang with word equivalents</td>
+</tr>
 <tr class="odd">
+<td><code>replace_kern</code></td>
+<td>replacement</td>
+<td>Replace spaces for &gt;2 letter, all cap, words containing spaces in between letters</td>
+</tr>
+<tr class="even">
 <td><code>replace_names</code></td>
 <td>replacement</td>
 <td>Replace common first/last names</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_non_ascii</code></td>
 <td>replacement</td>
 <td>Replace non-ascii with equivalent or remove</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_number</code></td>
 <td>replacement</td>
 <td>Replace common numbers</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_ordinal</code></td>
 <td>replacement</td>
 <td>Replace common ordinal number form</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_rating</code></td>
 <td>repalcement</td>
 <td>Replace ratings (e.g., &quot;10 out of 10&quot;, &quot;3 stars&quot;) with word equivalent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_symbol</code></td>
 <td>replacement</td>
 <td>Replace common symbols</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_white</code></td>
 <td>replacement</td>
 <td>Replace regex white space characters</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_token</code></td>
 <td>replacement</td>
 <td>Remove or replace a vector of tokens with a single value</td>
+</tr>
+<tr class="even">
+<td><code>replace_word_elongation</code></td>
+<td>repalcement</td>
+<td>Replace word elongations with shortened form</td>
 </tr>
 <tr class="odd">
 <td><code>add_comma_space</code></td>
@@ -493,7 +517,7 @@ And if all is well the user should be greeted by a cow:
     ## 
     ##  ------- 
     ## No problems found!
-    ## You are staggering! 
+    ## You are flawless! 
     ##  -------- 
     ##     \   ^__^ 
     ##      \  (oo)\ ________ 
@@ -727,6 +751,24 @@ this feature).
     ## [10] "Shall we move on?  Good then."        
     ## [11] "I'm hungry.  Let's eat.  You already?"
 
+### Match, Extract, Operate, Replacement Subs
+
+Again, `gsub` is a great tool but sometimes the user wants to match a
+pattern, extract that pattern, operate a function over that pattern, and
+then replace the original match. The `fgsub` function allows the user to
+perform this operation. It is a stripped down version of `gsubfn` from
+the **gsubfn** package. For more versatile needs please see the
+**gsubfn** package.
+
+    fgsub(
+        x = c(NA, 'df dft sdf', 'sd fdggg sd dfhhh d', 'ddd'),
+        pattern = "\\b\\w*([a-z])(\\1{2,})\\w*\\b",
+        fun = function(x) {paste0('<<', paste(rev(strsplit(x, '')[[1]]), collapse =''), '>>')}
+    )
+
+    ## [1] NA                            "df dft sdf"                 
+    ## [3] "sd <<gggdf>> sd <<hhhfd>> d" "<<ddd>>"
+
 ### Stashing Character Pre-Sub
 
 There are times the user may want to stash a set of characters before
@@ -821,6 +863,27 @@ provides this functionality.
     ## [4] "the robot at t.s. was not nice"     
     ## [5] "he would like it if I would go away"
 
+### Emojis
+
+Similar to emoticons, emoji tokens may be ignored if they are not in a
+computer readable form. `replace_emoji` replaces emojis with their word
+forms equivalents.
+
+    x <- read.delim(system.file("docs/r_tweets.txt", package = "textclean"), 
+        stringsAsFactors = FALSE)[[3]][1:3]
+
+    x
+
+    ## [1] "Hello, helpful! ðŸ“¦âŒðŸ‘¾ debugme: Easy & efficient debugging for R packages ðŸ‘¨ðŸ»â€ðŸ’» @GaborCsardi https://buff.ly/2nNKcps  #rstats"
+    ## [2] "Did you ever get bored and accidentally create a ðŸ“¦ to make #Rstats speak on a Mac? I have -> "                                            
+    ## [3] "A gift to my fellow nfl loving #rstats folks this package is ðŸ’¥ðŸ’¥"
+
+    replace_emoji(x)
+
+    ## [1] "Hello, helpful! package cross mark alien monster debugme: Easy & efficient debugging for R packages man <f0><9f><8f><bb><e2><80><8d> laptop computer @GaborCsardi https://buff.ly/2nNKcps #rstats"
+    ## [2] "Did you ever get bored and accidentally create a package to make #Rstats speak on a Mac? I have -> "                                                                                              
+    ## [3] "A gift to my fellow nfl loving #rstats folks this package is collision collision "
+
 ### Emoticons
 
 Some analysis techniques examine words, meaning emoticons may be
@@ -852,27 +915,6 @@ equivalents.
     ##  [8] "Put a zero 0 (halo) on top and now you have a winking, smiling angel angel with a nose angel "
     ##  [9] "Use the letter 8 in place of the colon for sunglasses glasses "                               
     ## [10] "Use the open bracket ( to turn the smile into a frown sad "
-
-### Emojis
-
-Similar to emoticons, emoji tokens may be ignored if they are not in a
-computer readable form. `replace_emoji` replaces emojis with their word
-forms equivalents.
-
-    x <- read.delim(system.file("docs/r_tweets.txt", package = "textclean"), 
-        stringsAsFactors = FALSE)[[3]][1:3]
-
-    x
-
-    ## [1] "Hello, helpful! ðŸ“¦âŒðŸ‘¾ debugme: Easy & efficient debugging for R packages ðŸ‘¨ðŸ»â€ðŸ’» @GaborCsardi https://buff.ly/2nNKcps  #rstats"
-    ## [2] "Did you ever get bored and accidentally create a ðŸ“¦ to make #Rstats speak on a Mac? I have -> "                                            
-    ## [3] "A gift to my fellow nfl loving #rstats folks this package is ðŸ’¥ðŸ’¥"
-
-    replace_emoji(x)
-
-    ## [1] "Hello, helpful! package cross mark alien monster debugme: Easy & efficient debugging for R packages man <f0><9f><8f><bb><e2><80><8d> laptop computer @GaborCsardi https://buff.ly/2nNKcps #rstats"
-    ## [2] "Did you ever get bored and accidentally create a package to make #Rstats speak on a Mac? I have -> "                                                                                              
-    ## [3] "A gift to my fellow nfl loving #rstats folks this package is collision collision "
 
 ### Grades
 
@@ -922,6 +964,54 @@ with a pipe (`|`) endmark (or one of the user's choice).
     replace_incomplete(x, '...')
 
     ## [1] "the..."   "I..."     "you."     "threw..." "we?"
+
+### Internet Slang
+
+Often in informal written and spoken communication (e.g., Twitter,
+texting, Facebook, etc.) people use Internet slang, shorter
+abbreviations and acronyms, to replace longer word sequences. These
+replacements may obfuscate the meaning when the machine attempts to
+analyze the text. The `replace_internet_slang` function replaces the
+slang with longer word equivalents that are more easily analyzed by
+machines.
+
+    x <- c(
+        "TGIF and a big w00t!  The weekend is GR8!",
+        "NP it was my pleasure: EOM",
+        'w8...this n00b needs me to say LMGTFY...lol.',
+        NA
+    )
+
+    replace_internet_slang(x)
+
+    ## [1] "thank god, it's friday and a big hooray!  The weekend is great!"                   
+    ## [2] "no problem it was my pleasure: end of message"                                     
+    ## [3] "wait...this newbie needs me to say let me google that for you...laughing out loud."
+    ## [4] NA
+
+### Kerning
+
+In typography kerning is the adjustment of spacing. Often, in informal
+writing, adding manual spaces (a form of kerning) coupled with all
+capital letters is used for emphasis (e.g., `"She's the B O M B!"`).
+These word forms would look like noise in most analysis and would likely
+be removed as a stopword when in fact they likely carry a great deal of
+meaning. The `replace_kern` function looks for 3 or more consecutive
+capital letters with spaces in between and removes the spaces.
+
+    x <- c(
+        "Welcome to A I: the best W O R L D!",
+        "Hi I R is the B O M B for sure: we A G R E E indeed.",
+        "A sort C A T indeed!",
+        NA
+    )
+
+    replace_kern(x)
+
+    ## [1] "Welcome to A I: the best WORLD!"              
+    ## [2] "Hi I R is the BOMB for sure: we AGREE indeed."
+    ## [3] "A sort CAT indeed!"                           
+    ## [4] NA
 
 ### Names
 
@@ -1121,6 +1211,41 @@ the `replace_white` function.
 
     ## [1] "I go to the next line"
 
+### Word Elongation
+
+In informal writing people may use a form of text embellishment to
+emphasize or alter word meanings called elongation (a.k.a. "word
+lengthening"). For example, the use of "Whyyyyy" conveys frustration.
+Other times the usage may be to be more sexy (e.g., "Heyyyy there").
+Other times it may be used for emphasis (e.g., "This is so gooood").
+
+The `replace_word_elongation` function replaces these un-normalized
+forms with the most likely normalized form. The `impart.meaning`
+argument can replace a short list of known elongations with semantic
+replacements.
+
+    x <- c('look', 'noooooo!', 'real coooool!', "it's sooo goooood", 'fsdfds',
+        'fdddf', 'as', "aaaahahahahaha", "aabbccxccbbaa", 'I said heyyy!',
+        "I'm liiiike whyyyyy me?", "Wwwhhatttt!", NA)
+
+    replace_word_elongation(x)
+
+    ##  [1] "look"             "no!"              "real cool!"      
+    ##  [4] "it's so good"     "fsdfds"           "fdf"             
+    ##  [7] "as"               "ahahahahaha"      "aabbccxccbbaa"   
+    ## [10] "I said hey!"      "I'm like why me?" "what!"           
+    ## [13] NA
+
+    replace_word_elongation(x, impart.meaning = TRUE)
+
+    ##  [1] "look"                     "sarcastic!"              
+    ##  [3] "real cool!"               "it's so good"            
+    ##  [5] "fsdfds"                   "fdf"                     
+    ##  [7] "as"                       "ahahahahaha"             
+    ##  [9] "aabbccxccbbaa"            "I said hey sexy!"        
+    ## [11] "I'm like frustration me?" "what!"                   
+    ## [13] NA
+
 ### Tokens
 
 Often an analysis requires converting tokens of a certain type into a
@@ -1145,21 +1270,21 @@ This example shows a use case for `replace_token`:
     x$text.var <- paste0(x$text.var, sample(c('.', '!', '?'), length(x$text.var), TRUE))
     head(x$text.var)
 
-    ## [1] "immunologic sanction Julieann generous Shelby wiliness mutase cuticula Michelle theres counterblockade Sheba!"
-    ## [2] "redefeats mitigation cascading bio virtuosos shins contingencies dyne Khadijah maftirs safe Ashlyn?"          
-    ## [3] "unprobed wherrying ascertain Willow stateroom wenches mistrial Lyle Shavonne punition Fidel aircondition!"    
-    ## [4] "Kisha surroundings dentin pouring throb friaries Venita deanna complying hilarie Thora pinger."               
-    ## [5] "saltworks rubying Yelena arturo aggrandizing affixal Collen cyclamen mauritius gamb growable iodine!"         
-    ## [6] "Gertha eloise Talitha Milda networked amplification centrisms aroints therme Jon carhop fixatifs?"
+    ## [1] "incidentals Alycia undertaxed like proclivity sensibles bradley Maria envy Forrest triazin stiffens?"           
+    ## [2] "Carissa assists Gina bemingle Miles Colene educe Cortez Melita realisers congruence Bethel!"                    
+    ## [3] "hisses bred voyageurs stabler hadleigh tapers Princess paucities junketer aversion Maryann oncologist."         
+    ## [4] "Syreeta rehung tediously Anita hoers amplifying unlives mammeys Myrtice Blanche Trisha Cortez?"                 
+    ## [5] "Susana kaliph downhill jubilee clearness sieved superintend Garret flops shiftlessness confers quarrier."       
+    ## [6] "Mellissa contraindicated Michell Gracia joshed inactivating Willy saltbush oiliest tubules circulatory Glennie."
 
     head(replace_tokens(x$text.var, nms, 'NAME'))
 
-    ## [1] "immunologic sanction NAME generous NAME wiliness mutase cuticula NAME theres counterblockade NAME!"
-    ## [2] "redefeats mitigation cascading bio virtuosos shins contingencies dyne NAME maftirs safe NAME?"     
-    ## [3] "unprobed wherrying ascertain NAME stateroom wenches mistrial NAME NAME punition NAME aircondition!"
-    ## [4] "NAME surroundings dentin pouring throb friaries NAME deanna complying hilarie NAME pinger."        
-    ## [5] "saltworks rubying NAME arturo aggrandizing affixal NAME cyclamen mauritius gamb growable iodine!"  
-    ## [6] "NAME eloise NAME NAME networked amplification centrisms aroints therme NAME carhop fixatifs?"
+    ## [1] "incidentals NAME undertaxed like proclivity sensibles bradley NAME envy NAME triazin stiffens?"      
+    ## [2] "NAME assists NAME bemingle NAME NAME educe NAME NAME realisers congruence NAME!"                     
+    ## [3] "hisses bred voyageurs stabler hadleigh tapers NAME paucities junketer aversion NAME oncologist."     
+    ## [4] "NAME rehung tediously NAME hoers amplifying unlives mammeys NAME NAME NAME NAME?"                    
+    ## [5] "NAME kaliph downhill jubilee clearness sieved superintend NAME flops shiftlessness confers quarrier."
+    ## [6] "NAME contraindicated NAME NAME joshed inactivating NAME saltbush oiliest tubules circulatory NAME."
 
 This demonstration shows how fast token replacement can be with
 `replace_token`:
@@ -1168,37 +1293,37 @@ This demonstration shows how fast token replacement can be with
     tic <- Sys.time()
     head(mgsub(x$text.var, nms, "NAME"))
 
-    ## [1] "immunologic sanction NAME generous NAME wiliness mutase cuticula NAME theres counterblockade NAME!"
-    ## [2] "redefeats mitigation cascading bio virtuosos shins contingencies dyne NAME maftirs safe NAME?"     
-    ## [3] "unprobed wherrying ascertain NAME stateroom wenches mistrial NAME NAME punition NAME aircondition!"
-    ## [4] "NAME surroundings dentin pouring throb friaries NAME deanna complying hilarie NAME pinger."        
-    ## [5] "saltworks rubying NAME arturo aggrandizing affixal NAME cyclamen mauritius gamb growable iodine!"  
-    ## [6] "NAME eloise NAME NAME networked amplification centrisms aroints therme NAME carhop fixatifs?"
+    ## [1] "incidentals NAME undertaxed like proclivity sensibles bradley NAME envy NAME triazin stiffens?"      
+    ## [2] "NAME assists NAME bemingle NAME NAME educe NAME NAME realisers congruence NAME!"                     
+    ## [3] "hisses bred voyageurs stabler hadleigh tapers NAME paucities junketer aversion NAME oncologist."     
+    ## [4] "NAME rehung tediously NAME hoers amplifying unlives mammeys NAME NAME NAME NAME?"                    
+    ## [5] "NAME kaliph downhill jubilee clearness sieved superintend NAME flops shiftlessness confers quarrier."
+    ## [6] "NAME contraindicated NAME NAME joshed inactivating NAME saltbush oiliest tubules circulatory NAME."
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 6.151008 secs
+    ## Time difference of 7.30424 secs
 
     ## replace_tokens
     tic <- Sys.time()
     head(replace_tokens(x$text.var, nms, "NAME"))
 
-    ## [1] "immunologic sanction NAME generous NAME wiliness mutase cuticula NAME theres counterblockade NAME!"
-    ## [2] "redefeats mitigation cascading bio virtuosos shins contingencies dyne NAME maftirs safe NAME?"     
-    ## [3] "unprobed wherrying ascertain NAME stateroom wenches mistrial NAME NAME punition NAME aircondition!"
-    ## [4] "NAME surroundings dentin pouring throb friaries NAME deanna complying hilarie NAME pinger."        
-    ## [5] "saltworks rubying NAME arturo aggrandizing affixal NAME cyclamen mauritius gamb growable iodine!"  
-    ## [6] "NAME eloise NAME NAME networked amplification centrisms aroints therme NAME carhop fixatifs?"
+    ## [1] "incidentals NAME undertaxed like proclivity sensibles bradley NAME envy NAME triazin stiffens?"      
+    ## [2] "NAME assists NAME bemingle NAME NAME educe NAME NAME realisers congruence NAME!"                     
+    ## [3] "hisses bred voyageurs stabler hadleigh tapers NAME paucities junketer aversion NAME oncologist."     
+    ## [4] "NAME rehung tediously NAME hoers amplifying unlives mammeys NAME NAME NAME NAME?"                    
+    ## [5] "NAME kaliph downhill jubilee clearness sieved superintend NAME flops shiftlessness confers quarrier."
+    ## [6] "NAME contraindicated NAME NAME joshed inactivating NAME saltbush oiliest tubules circulatory NAME."
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 0.07305217 secs
+    ## Time difference of 0.0790689 secs
 
 Now let's amp it up with 20x more text data. That's 50,000 rows of text
-(600,100 words) and 5,493 replacement tokens in 1.4 seconds.
+(600,120 words) and 5,493 replacement tokens in 1.7 seconds.
 
     tic <- Sys.time()
     out <- replace_tokens(rep(x$text.var, 20), nms, "NAME")
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 1.398986 secs
+    ## Time difference of 1.721217 secs
