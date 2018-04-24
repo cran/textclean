@@ -540,7 +540,7 @@ And if all is well the user should be greeted by a cow:
     ## 
     ##  ------- 
     ## No problems found!
-    ## You are marvelous! 
+    ## You are stupendous! 
     ##  -------- 
     ##     \   ^__^ 
     ##      \  (oo)\ ________ 
@@ -805,17 +805,17 @@ punctuation, and last put the stashed emoticons back.
 
     (fake_dat <- paste(hash_emoticons[1:11, 1, with=FALSE][[1]], DATA$state))
 
-    ##  [1] "#-o Computer is fun. Not too fun."        
-    ##  [2] "$_$ No it's not, it's dumb."              
-    ##  [3] "(*v*) What should we do?"                 
-    ##  [4] "(-: You liar, it stinks!"                 
-    ##  [5] "(-}{-) I am telling the truth!"           
-    ##  [6] "(.V.) How can we be certain?"             
-    ##  [7] ")-: There is no way."                     
-    ##  [8] "*-* I distrust you."                      
-    ##  [9] "*<:o) What are you talking about?"        
-    ## [10] "//_^ Shall we move on?  Good then."       
-    ## [11] "0;) I'm hungry.  Let's eat.  You already?"
+    ##  [1] "#-) Computer is fun. Not too fun."         
+    ##  [2] "%) No it's not, it's dumb."                
+    ##  [3] "%-) What should we do?"                    
+    ##  [4] "',:-l You liar, it stinks!"                
+    ##  [5] "',:-| I am telling the truth!"             
+    ##  [6] "*) How can we be certain?"                 
+    ##  [7] "*-) There is no way."                      
+    ##  [8] "*<|:-) I distrust you."                    
+    ##  [9] "*\\0/* What are you talking about?"        
+    ## [10] "0:) Shall we move on?  Good then."         
+    ## [11] "0:-) I'm hungry.  Let's eat.  You already?"
 
     (m <- sub_holder(fake_dat, hash_emoticons[[1]]))
 
@@ -847,17 +847,17 @@ punctuation, and last put the stashed emoticons back.
 
     m$unhold(m_stripped)
 
-    ##  [1] "#-o computer is fun not too fun"     
-    ##  [2] "$_$ no it's not it's dumb"           
-    ##  [3] "(*v*) what should we do"             
-    ##  [4] "(-: you liar it stinks"              
-    ##  [5] "(-}{-) i am telling the truth"       
-    ##  [6] "(.V.) how can we be certain"         
-    ##  [7] ")-: there is no way"                 
-    ##  [8] "*-* i distrust you"                  
-    ##  [9] "*<:o) what are you talking about"    
-    ## [10] "//_^ shall we move on good then"     
-    ## [11] "0;) i'm hungry let's eat you already"
+    ##  [1] "#-) computer is fun not too fun"      
+    ##  [2] "%) no it's not it's dumb"             
+    ##  [3] "%-) what should we do"                
+    ##  [4] "',:-l you liar it stinks"             
+    ##  [5] "',:-| i am telling the truth"         
+    ##  [6] "*) how can we be certain"             
+    ##  [7] "*-) there is no way"                  
+    ##  [8] "*<|:-) i distrust you"                
+    ##  [9] "*\\0/* what are you talking about"    
+    ## [10] "0:) shall we move on good then"       
+    ## [11] "0:-) i'm hungry let's eat you already"
 
 Replacement
 -----------
@@ -944,16 +944,16 @@ equivalents.
 
     replace_emoticon(x)
 
-    ##  [1] "text from: http://www.webopedia.com/quick_ref/textmessageabbreviations_02.asp"                
-    ##  [2] "... understanding what different characters used in smiley faces mean:"                       
-    ##  [3] "The close bracket represents a sideways smile )"                                              
-    ##  [4] "Add in the colon and you have sideways eyes :"                                                
-    ##  [5] "Put them together to make a smiley face happy "                                               
-    ##  [6] "Use the dash - to add a nose happy "                                                          
-    ##  [7] "Change the colon to a semi-colon ; and you have a winking face winking with a nose winking "  
-    ##  [8] "Put a zero 0 (halo) on top and now you have a winking, smiling angel angel with a nose angel "
-    ##  [9] "Use the letter 8 in place of the colon for sunglasses glasses "                               
-    ## [10] "Use the open bracket ( to turn the smile into a frown sad "
+    ##  [1] "text from: http skeptical /www.webopedia.com/quick_ref/textmessageabbreviations_02.asp"         
+    ##  [2] "... understanding what different characters used in smiley faces mean:"                         
+    ##  [3] "The close bracket represents a sideways smile )"                                                
+    ##  [4] "Add in the colon and you have sideways eyes :"                                                  
+    ##  [5] "Put them together to make a smiley face smiley "                                                
+    ##  [6] "Use the dash - to add a nose smiley "                                                           
+    ##  [7] "Change the colon to a semi-colon ; and you have a winking face wink with a nose wink "          
+    ##  [8] "Put a zero 0 (halo) on top and now you have a winking, smiling angel 0 wink with a nose 0 wink "
+    ##  [9] "Use the letter 8 in place of the colon for sunglasses smiley "                                  
+    ## [10] "Use the open bracket ( to turn the smile into a frown frown "
 
 ### Grades
 
@@ -1331,21 +1331,21 @@ This example shows a use case for `replace_token`:
     x$text.var <- paste0(x$text.var, sample(c('.', '!', '?'), length(x$text.var), TRUE))
     head(x$text.var)
 
-    ## [1] "zippering precede Miguel Hollis Elmo kenneling reuniter Domonique prejudged zoners striating Estrella?"   
-    ## [2] "falters muff wormwoods Kay Derek Rita penelope undergod pricing Hortencia Kelley accuse."                 
-    ## [3] "Natalia superiorities yale kamsin renaud perceptively besieger mavises undergoes Jaimie Rodrick wizening?"
-    ## [4] "Yevette Sally tambala Miquel Irish Zack Idella Tisa Danial evangelism heyday coldness."                   
-    ## [5] "Bette Wyatt threadbare Hassie duettist Marco starnose fictive winceys refloat Rufus madam?"               
-    ## [6] "teethers Deanne mousing readopting ungainlinesses auburn purport sirrah Jean Elenore dodger reevaluated!"
+    ## [1] "Verlie concussion frizettes Paulita uniform linoleums Corine Sixta besmudging Iona Sheridan running?"               
+    ## [2] "japanizes unthroning Maira hammer sagacious probes Reed Cherry briskness mates mainlined breeks."                   
+    ## [3] "aperies portentous wooding Kathy Judi steamered tate Adella Renaldo Branden creeps tuftily."                        
+    ## [4] "Angila Gilberte Ilana repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
+    ## [5] "froggiest foodless marblers outturn alienation marmalade Luther Audry disaffections katine madding Donetta?"        
+    ## [6] "limens Mitchell dean Karena schemer stabbers Grisel brazenly Jaime memorandums Annie Sindy."
 
     head(replace_tokens(x$text.var, nms, 'NAME'))
 
-    ## [1] "zippering precede NAME NAME NAME kenneling reuniter NAME prejudged zoners striating NAME?"          
-    ## [2] "falters muff wormwoods NAME NAME NAME penelope undergod pricing NAME NAME accuse."                  
-    ## [3] "NAME superiorities yale kamsin renaud perceptively besieger mavises undergoes NAME NAME wizening?"  
-    ## [4] "NAME NAME tambala NAME NAME NAME NAME NAME NAME evangelism heyday coldness."                        
-    ## [5] "NAME NAME threadbare NAME duettist NAME starnose fictive winceys refloat NAME madam?"               
-    ## [6] "teethers NAME mousing readopting ungainlinesses auburn purport sirrah NAME NAME dodger reevaluated!"
+    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
+    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
+    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
+    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
+    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
+    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
 
 This demonstration shows how fast token replacement can be with
 `replace_token`:
@@ -1354,40 +1354,40 @@ This demonstration shows how fast token replacement can be with
     tic <- Sys.time()
     head(mgsub(x$text.var, nms, "NAME"))
 
-    ## [1] "zippering precede NAME NAME NAME kenneling reuniter NAME prejudged zoners striating NAME?"          
-    ## [2] "falters muff wormwoods NAME NAME NAME penelope undergod pricing NAME NAME accuse."                  
-    ## [3] "NAME superiorities yale kamsin renaud perceptively besieger mavises undergoes NAME NAME wizening?"  
-    ## [4] "NAME NAME tambala NAME NAME NAME NAME NAME NAME evangelism heyday coldness."                        
-    ## [5] "NAME NAME threadbare NAME duettist NAME starnose fictive winceys refloat NAME madam?"               
-    ## [6] "teethers NAME mousing readopting ungainlinesses auburn purport sirrah NAME NAME dodger reevaluated!"
+    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
+    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
+    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
+    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
+    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
+    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 7.611885 secs
+    ## Time difference of 8.532315 secs
 
     ## replace_tokens
     tic <- Sys.time()
     head(replace_tokens(x$text.var, nms, "NAME"))
 
-    ## [1] "zippering precede NAME NAME NAME kenneling reuniter NAME prejudged zoners striating NAME?"          
-    ## [2] "falters muff wormwoods NAME NAME NAME penelope undergod pricing NAME NAME accuse."                  
-    ## [3] "NAME superiorities yale kamsin renaud perceptively besieger mavises undergoes NAME NAME wizening?"  
-    ## [4] "NAME NAME tambala NAME NAME NAME NAME NAME NAME evangelism heyday coldness."                        
-    ## [5] "NAME NAME threadbare NAME duettist NAME starnose fictive winceys refloat NAME madam?"               
-    ## [6] "teethers NAME mousing readopting ungainlinesses auburn purport sirrah NAME NAME dodger reevaluated!"
+    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
+    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
+    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
+    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
+    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
+    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 0.08307314 secs
+    ## Time difference of 0.06699586 secs
 
 Now let's amp it up with 20x more text data. That's 50,000 rows of text
-(600,060 words) and 5,493 replacement tokens in 1.6 seconds.
+(600,120 words) and 5,493 replacement tokens in 1.6 seconds.
 
     tic <- Sys.time()
     out <- replace_tokens(rep(x$text.var, 20), nms, "NAME")
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 1.613157 secs
+    ## Time difference of 1.596291 secs
 
 ### White Space
 

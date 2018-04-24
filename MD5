@@ -1,6 +1,6 @@
-96441752e26be09484f4c243fef903dd *DESCRIPTION
+ec8900ed85a3831b1bf1908d82789c85 *DESCRIPTION
 8340f0f607d7b24d979948ba4a3fa4db *NAMESPACE
-f055efb59ea9949ef40c22f8f9870e43 *NEWS
+89aa883e8d88cee6e961b2726592d64a *NEWS
 8a78e3bba7ee4047ac1d0788c983b8d2 *R/add_comma_space.R
 db59629a41d5f5cbf1b00315b0d1d610 *R/add_missing_endmark.R
 a656708d84764ee8c1da665e719847e0 *R/check_text.R
@@ -37,12 +37,12 @@ e6dfb49278c581232065cd330f019dd1 *R/replace_kerning.R
 fe9028f6713d3c7c8a21971b19b1def3 *R/strip.R
 4c53cda08c7a3d335a5e3e90a884b46e *R/sub_holder.R
 c6fd4950db1d057293a862393fce0990 *R/swap.R
-9c7b57a06035f97cd6edcdd7ac6bb688 *R/sysdata.rda
+577f26813c64455d14c8b234f5fe6afc *R/sysdata.rda
 2c6f4b1ef4fd20c7b95cdf2e1affd983 *R/textclean-package.R
 60a237f83e5f0be80e51701ce1b369d1 *R/utils.R
-9a84c45ea0979e8bc342f61ec08a5240 *README.md
-74252db94cae21881406089412f8b6fa *data/DATA.rda
-42e7a470e26314d6f5ee491715f36d96 *inst/CITATION
+89749364156f2ae9e90d7d21f3a0972e *README.md
+69869d0381e62f0b8c9193bb9539fc45 *data/DATA.rda
+09c44cdffb26d551327ad9d66fea053d *inst/CITATION
 ad74fb117f45a9f92069d6a160868ec1 *inst/docs/emoji_sample.txt
 bf15ac048e7150e3b0aadf33bcf36a57 *inst/docs/r_tweets.txt
 efbaf9190b69fd1cbcaa73c19a5c7745 *man/DATA.Rd
@@ -86,7 +86,7 @@ e7b5f021a30c880e6ac13b00a304c1bf *man/sub_holder.Rd
 8cdd5b125c1d18aa9436935c0cb8f407 *man/swap.Rd
 e87e1a66d3e856f8607c892e68d66e45 *man/textclean.Rd
 6907352e1c1649c9d517e18c3e88cc8e *tests/testthat.R
-69553e5713664417291ead02554261a8 *tests/testthat/test-replace_emoticon.R
+2d52774e750b45f1592d5dd342d47121 *tests/testthat/test-replace_emoticon.R
 97f98367146eec8430b789047d51116c *tests/testthat/test-replace_grade.R
 23d2f2fe3a91f9edd646bcc075ee096d *tests/testthat/test-replace_rating.R
 a782b36bc830e9250fadf1a99c9a1c07 *tests/testthat/test-strip.R
