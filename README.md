@@ -13,9 +13,35 @@ Status](https://coveralls.io/repos/trinker/textclean/badge.svg?branch=master)](h
 
 ![](tools/textclean_logo/r_textclean.png)
 
-**textclean** is a collection of tools to clean and process text. Many
+**textclean** is a collection of tools to clean and normalize text. Many
 of these tools have been taken from the **qdap** package and revamped to
-be more intuitive, better named, and faster.
+be more intuitive, better named, and faster. Tools are geared at
+checking for substrings that are not optimal for analysis and replacing
+or removing them (normalizing) with more analysis friendly substrings
+(see Sproat, Black, Chen, Kumar, Ostendorf, & Richards, 2001,
+<doi:10.1006/csla.2001.0169>) or extracting them into new variables. For
+example, emoticons are often used in text but not always easily handled
+by analysis algorithms. The `replace_emoticon()` function replaces
+emoticons with word equivalents.
+
+Other R packages provide some of the same functionality (e.g.,
+**english**, **gsubfn**, **mgsub**, **stringi**, **stringr**,
+**qdapRegex**). **textclean** differs from these packages in that it is
+designed to handle all of the common cleaning and normalization tasks
+with a single, consistent, pre-configured toolset (note that
+**textclean** uses many of these terrific packages as a backend). This
+means that the researcher spends less time on munging, leading to
+quicker analysis. This package is meant to be used jointly with the
+[**textshape**](https://github.com/trinker/textshape) package, which
+provides text extraction and reshaping functionality. **textclean**
+works well with the
+[**qdapRegex**](https://github.com/trinker/qdapRegex) package which
+provides tooling for substring substitution and extraction of pre-canned
+regular expressions. In addition, the functions of **textclean** are
+designed to work within the piping of the tidyverse framework by
+consistently using the first argument of functions as the data source.
+The **textclean** subbing and replacement tools are particularly
+effective within a `dplyr::mutate` statement.
 
 
 Table of Contents
@@ -24,6 +50,7 @@ Table of Contents
 -   [Functions](#functions)
 -   [Installation](#installation)
 -   [Contact](#contact)
+-   [Contributing](#contributing)
 -   [Demonstration](#demonstration)
     -   [Load the Packages/Data](#load-the-packagesdata)
     -   [Check Text](#check-text)
@@ -137,19 +164,29 @@ table below:
 <td>Replace dates</td>
 </tr>
 <tr class="odd">
+<td><code>replace_email</code></td>
+<td>replacement</td>
+<td>Replace emails</td>
+</tr>
+<tr class="even">
 <td><code>replace_emoji</code></td>
 <td>replacement</td>
 <td>Replace emojis with word equivalent or unique identifier</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_emoticon</code></td>
 <td>replacement</td>
 <td>Replace emoticons with word equivalent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>replace_grade</code></td>
 <td>replacement</td>
 <td>Replace grades (e.g., &quot;A+&quot;) with word equivalent</td>
+</tr>
+<tr class="odd">
+<td><code>replace_hash</code></td>
+<td>replacement</td>
+<td>Replace Twitter style hash tags (e.g., #rstats)</td>
 </tr>
 <tr class="even">
 <td><code>replace_html</code></td>
@@ -207,9 +244,19 @@ table below:
 <td>Replace common symbols</td>
 </tr>
 <tr class="odd">
+<td><code>replace_tag</code></td>
+<td>replacement</td>
+<td>Replace Twitter style handle tag (e.g., <span class="citation">@trinker</span>)</td>
+</tr>
+<tr class="even">
 <td><code>replace_time</code></td>
 <td>replacement</td>
 <td>Replace time stamps</td>
+</tr>
+<tr class="odd">
+<td><code>replace_to</code>/<code>replace_from</code></td>
+<td>replacement</td>
+<td>Remove from/to begin/end of string to/from a character(s)</td>
 </tr>
 <tr class="even">
 <td><code>replace_token</code></td>
@@ -217,36 +264,41 @@ table below:
 <td>Remove or replace a vector of tokens with a single value</td>
 </tr>
 <tr class="odd">
+<td><code>replace_url</code></td>
+<td>replacement</td>
+<td>Replace URLs</td>
+</tr>
+<tr class="even">
 <td><code>replace_white</code></td>
 <td>replacement</td>
 <td>Replace regex white space characters</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>replace_word_elongation</code></td>
 <td>replacement</td>
 <td>Replace word elongations with shortened form</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>add_comma_space</code></td>
 <td>replacement</td>
 <td>Replace non-space after comma</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>add_missing_endmark</code></td>
 <td>replacement</td>
 <td>Replace missing endmarks with desired symbol</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>make_plural</code></td>
 <td>replacement</td>
 <td>Add plural endings to singular noun forms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>check_text</code></td>
 <td>check</td>
 <td>Text report of potential issues</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>has_endmark</code></td>
 <td>check</td>
 <td>Check if an element has an end-mark</td>
@@ -274,10 +326,24 @@ the development version:
 Contact
 =======
 
-You are welcome to:    
-- submit suggestions and bug-reports at: <https://github.com/trinker/textclean/issues>    
-- send a pull request on: <https://github.com/trinker/textclean/>    
-- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
+You are welcome to:  
+- submit suggestions and bug-reports at:
+<https://github.com/trinker/textclean/issues>
+
+Contributing
+============
+
+Contributions are welcome from anyone subject to the following rules:
+
+-   Abide by the [code of conduct](CONDUCT.md).
+-   Follow the style conventions of the package (indentation, function &
+    argument naming, commenting, etc.)
+-   All contributions must be consistent with the package license
+    (GPL-2)
+-   Submit contributions as a pull request. Clearly state what the
+    changes are and try to keep the number of changes per pull request
+    as low as possible.
+-   If you make big changes, add your name to the 'Author' field.
 
 Demonstration
 =============
@@ -299,26 +365,45 @@ overview of what may need further preparation. The report also provides
 suggested functions for the reported problems. The report provides
 information on the following:
 
-1.  **non\_character** - Text that is `factor`.
-2.  **missing\_ending\_punctuation** - Text with no endmark at the end
-    of the string.
-3.  **empty** - Text that contains an empty element (i.e., `""`).
-4.  **double\_punctuation** - Text that contains two punctuation marks
-    in the same string.
-5.  **non\_space\_after\_comma** - Text that contains commas with no
-    space after them.
-6.  **no\_alpha** - Text that contains string elements with no
-    alphabetic characters.
-7.  **non\_ascii** - Text that contains non-ASCII characters.
-8.  **missing\_value** - Text that contains missing values (i.e., `NA`).
-9.  **containing\_escaped** - Text that contains escaped (see
-    `?Quotes`).
-10. **containing\_digits** - Text that contains digits.
-11. **containing\_html** - Text that potentially contains HTML markup.
-12. **indicating\_incomplete** - Text that contains endmarks that are
-    indicative of incomplete/trailing sentences (e.g., `...`).
-13. **potentially\_misspelled** - Text that contains potentially
-    misspelled words.
+1.  **contraction** - Text elements that contain contractions
+2.  **date** - Text elements that contain dates
+3.  **digit** - Text elements that contain digits/numbers
+4.  **email** - Text elements that contain email addresses
+5.  **emoticon** - Text elements that contain emoticons
+6.  **empty** - Text elements that contain empty text cells (all white
+    space)
+7.  **escaped** - Text elements that contain escaped back spaced
+    characters
+8.  **hash** - Text elements that contain Twitter style hash tags (e.g.,
+    \#rstats)
+9.  **html** - Text elements that contain HTML markup
+10. **incomplete** - Text elements that contain incomplete sentences
+    (e.g., uses ending punctuation like '...')
+11. **kern** - Text elements that contain kerning (e.g., 'The B O M B!')
+12. **list\_column** - Text variable that is a list column
+13. **missing\_value** - Text elements that contain missing values
+14. **misspelled** - Text elements that contain potentially misspelled
+    words
+15. **no\_alpha** - Text elements that contain elements with no
+    alphabetic (a-z) letters
+16. **no\_endmark** - Text elements that contain elements with missing
+    ending punctuation
+17. **no\_space\_after\_comma** - Text elements that contain commas with
+    no space afterwards
+18. **non\_ascii** - Text elements that contain non-ASCII text
+19. **non\_character** - Text variable that is not a character column
+    (likely `factor`)
+20. **non\_split\_sentence** - Text elements that contain unsplit
+    sentences (more than one sentence per element)
+21. **tag** - Text elements that contain Twitter style handle tags
+    (e.g., @trinker)
+22. **time** - Text elements that contain timestamps
+23. **url** - Text elements that contain URLs
+
+Note that `check_text` is running multiple checks and may be slower on
+larger texts. The user may provide a sample of text for review or use
+the `checks` argument to specify the exact checks to conduct and thus
+limit the compute time.
 
 Here is an example:
 
@@ -334,89 +419,125 @@ Here is an example:
     ## NON CHARACTER
     ## =============
     ## 
-    ## Text is a factor.
+    ## The text variable is not a character column (likely `factor`):
+    ## 
     ## 
     ## *Suggestion: Consider using `as.character` or `stringsAsFactors = FALSE` when reading in
+    ##              Also, consider rerunning `check_text` after fixing
     ## 
-    ## ==========================
-    ## MISSING ENDING PUNCTUATION
-    ## ==========================
     ## 
-    ## The following observations were missing ending punctuation:
+    ## =====
+    ## DIGIT
+    ## =====
     ## 
-    ## 1, 3, 4, 5, 6, 8, 10, 12, 14, 15
+    ## The following observations contain digits/numbers:
     ## 
-    ## The following text is missing ending punctuation:
+    ## 10, 13
     ## 
-    ## 1: i like
-    ## 3: I am ! that|
-    ## 4: 
-    ## 5: NA
-    ## 6: &quot;they&quot; they,were there
-    ## 8:    
+    ## This issue affected the following text:
+    ## 
     ## 10: 3;
-    ## 12: bißchen Zürcher
-    ## 14: \tgreat
-    ## 15: She said "yes"
+    ## 13: i 4like...
     ## 
-    ## *Suggestion: Consider cleaning the raw text or running `add_missing_endmark`
+    ## *Suggestion: Consider using `replace_number`
+    ## 
+    ## 
+    ## ========
+    ## EMOTICON
+    ## ========
+    ## 
+    ## The following observations contain emoticons:
+    ## 
+    ## 6
+    ## 
+    ## This issue affected the following text:
+    ## 
+    ## 6: &quot;they&quot; they,were there
+    ## 
+    ## *Suggestion: Consider using `replace_emoticons`
     ## 
     ## 
     ## =====
     ## EMPTY
     ## =====
     ## 
-    ## The following observations were empty:
+    ## The following observations contain empty text cells (all white space):
     ## 
-    ## 4, 8
+    ## 1
     ## 
-    ## The following text is empty:
+    ## This issue affected the following text:
     ## 
-    ## 4: 
-    ## 8:    
+    ## 1: i like
     ## 
-    ## *Suggestion: Consider running `filter_empty`
+    ## *Suggestion: Consider running `drop_empty_row`
     ## 
     ## 
-    ## ==================
-    ## DOUBLE PUNCTUATION
-    ## ==================
+    ## =======
+    ## ESCAPED
+    ## =======
     ## 
-    ## The following observations were double punctuation:
+    ## The following observations contain escaped back spaced characters:
     ## 
-    ## 2
+    ## 14
     ## 
-    ## The following text is double punctuation:
+    ## This issue affected the following text:
+    ## 
+    ## 14: \tgreat
+    ## 
+    ## *Suggestion: Consider using `replace_white`
+    ## 
+    ## 
+    ## ====
+    ## HTML
+    ## ====
+    ## 
+    ## The following observations contain HTML markup:
+    ## 
+    ## 2, 6
+    ## 
+    ## This issue affected the following text:
     ## 
     ## 2: <p>i want. </p>. thet them ther .
-    ## 
-    ## *Suggestion: Consider running `textshape::split_sentence`
-    ## 
-    ## 
-    ## =====================
-    ## NON SPACE AFTER COMMA
-    ## =====================
-    ## 
-    ## The following observations were non space after comma:
-    ## 
-    ## 6
-    ## 
-    ## The following text is non space after comma:
-    ## 
     ## 6: &quot;they&quot; they,were there
     ## 
-    ## *Suggestion: Consider running `add_comma_space`
+    ## *Suggestion: Consider running `replace_html`
+    ## 
+    ## 
+    ## ==========
+    ## INCOMPLETE
+    ## ==========
+    ## 
+    ## The following observations contain incomplete sentences (e.g., uses ending punctuation like '...'):
+    ## 
+    ## 13
+    ## 
+    ## This issue affected the following text:
+    ## 
+    ## 13: i 4like...
+    ## 
+    ## *Suggestion: Consider using `replace_incomplete`
+    ## 
+    ## 
+    ## =============
+    ## MISSING VALUE
+    ## =============
+    ## 
+    ## The following observations contain missing values:
+    ## 
+    ## 5
+    ## 
+    ## *Suggestion: Consider running `drop_NA`
     ## 
     ## 
     ## ========
     ## NO ALPHA
     ## ========
     ## 
-    ## The following observations were no alpha:
+    ## The following observations contain elements with no alphabetic (a-z) letters:
     ## 
     ## 4, 7, 8, 9, 10
     ## 
-    ## The following text is no alpha:
+    ## This issue affected the following text:
     ## 
     ## 4: 
     ## 7: .
@@ -427,110 +548,73 @@ Here is an example:
     ## *Suggestion: Consider cleaning the raw text or running `filter_row`
     ## 
     ## 
+    ## ==========
+    ## NO ENDMARK
+    ## ==========
+    ## 
+    ## The following observations contain elements with missing ending punctuation:
+    ## 
+    ## 1, 3, 4, 6, 8, 10, 12, 14, 15
+    ## 
+    ## This issue affected the following text:
+    ## 
+    ## 1: i like
+    ## 3: I am ! that|
+    ## 4: 
+    ## 6: &quot;they&quot; they,were there
+    ## 8:    
+    ## 10: 3;
+    ## 12: bißchen Zürcher
+    ## 14: \tgreat
+    ## 15: She said "yes"
+    ## 
+    ## *Suggestion: Consider cleaning the raw text or running `add_missing_endmark`
+    ## 
+    ## 
+    ## ====================
+    ## NO SPACE AFTER COMMA
+    ## ====================
+    ## 
+    ## The following observations contain commas with no space afterwards:
+    ## 
+    ## 6
+    ## 
+    ## This issue affected the following text:
+    ## 
+    ## 6: &quot;they&quot; they,were there
+    ## 
+    ## *Suggestion: Consider running `add_comma_space`
+    ## 
+    ## 
     ## =========
     ## NON ASCII
     ## =========
     ## 
-    ## The following observations were non ascii:
+    ## The following observations contain non-ASCII text:
     ## 
     ## 12
     ## 
-    ## The following text is non ascii:
+    ## This issue affected the following text:
     ## 
     ## 12: bißchen Zürcher
     ## 
     ## *Suggestion: Consider running `replace_non_ascii`
     ## 
     ## 
-    ## =============
-    ## MISSING VALUE
-    ## =============
-    ## 
-    ## The following observations were missing value:
-    ## 
-    ## 5
-    ## 
-    ## *Suggestion: Consider running `filter_NA`
-    ## 
-    ## 
     ## ==================
-    ## CONTAINING ESCAPED
+    ## NON SPLIT SENTENCE
     ## ==================
     ## 
-    ## The following observations were containing escaped:
+    ## The following observations contain unsplit sentences (more than one sentence per element):
     ## 
-    ## 14
+    ## 2, 3
     ## 
-    ## The following text is containing escaped:
-    ## 
-    ## 14: \tgreat
-    ## 
-    ## *Suggestion: Consider using `replace_white`
-    ## 
-    ## 
-    ## =================
-    ## CONTAINING DIGITS
-    ## =================
-    ## 
-    ## The following observations were containing digits:
-    ## 
-    ## 10, 13
-    ## 
-    ## The following text is containing digits:
-    ## 
-    ## 10: 3;
-    ## 13: i 4like...
-    ## 
-    ## *Suggestion: Consider using `replace_number`
-    ## 
-    ## 
-    ## ===============
-    ## CONTAINING HTML
-    ## ===============
-    ## 
-    ## The following observations were containing html:
-    ## 
-    ## 2, 6
-    ## 
-    ## The following text is containing html:
+    ## This issue affected the following text:
     ## 
     ## 2: <p>i want. </p>. thet them ther .
-    ## 6: &quot;they&quot; they,were there
+    ## 3: I am ! that|
     ## 
-    ## *Suggestion: Consider running `replace_html`
-    ## 
-    ## 
-    ## =====================
-    ## INDICATING INCOMPLETE
-    ## =====================
-    ## 
-    ## The following observations were indicating incomplete:
-    ## 
-    ## 13
-    ## 
-    ## The following text is indicating incomplete:
-    ## 
-    ## 13: i 4like...
-    ## 
-    ## *Suggestion: Consider using `replace_incomplete`
-    ## 
-    ## 
-    ## ======================
-    ## POTENTIALLY MISSPELLED
-    ## ======================
-    ## 
-    ## The following observations were potentially misspelled:
-    ## 
-    ## 2, 11, 12, 14
-    ## 
-    ## The following text is potentially misspelled:
-    ## 
-    ## 2: <p>i want. </p>. <<thet>> them <<ther>> .
-    ## 11: I like <<goud>> eggs!
-    ## 12: <<bißchen>> <<Zürcher>>
-    ## 14: \<<tgreat>>
-    ## 
-    ## *Suggestion: Consider running `hunspell::hunspell_find` & `hunspell::hunspell_suggest`
+    ## *Suggestion: Consider running `textshape::split_sentence`
 
 And if all is well the user should be greeted by a cow:
 
@@ -538,15 +622,15 @@ And if all is well the user should be greeted by a cow:
     check_text(y)
 
     ## 
-    ##  ------- 
+    ##  ------------- 
     ## No problems found!
-    ## You are stupendous! 
-    ##  -------- 
-    ##     \   ^__^ 
-    ##      \  (oo)\ ________ 
-    ##         (__)\         )\ /\ 
-    ##              ||------w|
-    ##              ||      ||
+    ## This text is remarkable! 
+    ##  ---------------- 
+    ##   \   ^__^ 
+    ##    \  (oo)\ ________ 
+    ##       (__)\         )\ /\ 
+    ##            ||------w|
+    ##            ||      ||
 
 Row Filtering
 -------------
@@ -774,6 +858,58 @@ this feature).
     ## [10] "Shall we move on?  Good then."        
     ## [11] "I'm hungry.  Let's eat.  You already?"
 
+#### Safe Substitutions
+
+The default behavior of `mgsub` is optimized for speed. This means that
+it is very fast at multiple substitutions and in most cases works
+efficiently. However, it is not what Mark Ewing describes as "safe"
+substitution. In his vignette for the
+[**mgsub**](https://github.com/bmewing/mgsub) package, Mark defines
+"safe" as:
+
+> 1.  Longer matches are preferred over shorter matches for substitution
+>     first
+> 2.  No placeholders are used so accidental string collisions don't
+>     occur
+
+Because safety is sometimes required, `textclean::mgsub` provides a
+`safe` argument using the **mgsub** package as the backend. In addition
+to the `safe` argument the `mgsub_regex_safe` function is available to
+make the usage more explicit. The safe mode comes at the cost of speed.
+
+    x <- "Dopazamine is a fake chemical"
+    pattern <- c("dopazamin", "do.*ne")
+    replacement <- c("freakout", "metazamine")
+
+    ## Unsafe
+    mgsub(x, pattern, replacement, ignore.case=TRUE, fixed = FALSE)
+
+    ## [1] "freakoute is a fake chemical"
+
+    ## Safe
+    mgsub(x, pattern, replacement, ignore.case=TRUE, fixed = FALSE, safe = TRUE)
+
+    ## [1] "metazamine is a fake chemical"
+
+    ## Or alternatively
+    mgsub_regex_safe(x, pattern, replacement, ignore.case=TRUE)
+
+    ## [1] "metazamine is a fake chemical"
+
+    x <- "hey, how are you?"
+    pattern <- c("hey", "how", "are", "you")
+    replacement <- c("how", "are", "you", "hey")
+
+    ## Unsafe
+    mgsub(x, pattern,replacement)
+
+    ## [1] "how, are you how?"
+
+    ## Safe
+    mgsub_regex_safe(x, pattern,replacement)
+
+    ## [1] "how, are you hey?"
+
 ### Match, Extract, Operate, Replacement Subs
 
 Again, `gsub` is a great tool but sometimes the user wants to match a
@@ -783,6 +919,12 @@ perform this operation. It is a stripped down version of `gsubfn` from
 the **gsubfn** package. For more versatile needs please see the
 **gsubfn** package.
 
+In this example the regex looks for words that contain a lower case
+letter followed by the same letter at least 2 more times. It then
+extracts these words, splits them appart into letters, reverses the
+string, pastes them back together, wraps them with double angle braces,
+and then puts them back at the original locations.
+
     fgsub(
         x = c(NA, 'df dft sdf', 'sd fdggg sd dfhhh d', 'ddd'),
         pattern = "\\b\\w*([a-z])(\\1{2,})\\w*\\b",
@@ -791,6 +933,19 @@ the **gsubfn** package. For more versatile needs please see the
 
     ## [1] NA                            "df dft sdf"                 
     ## [3] "sd <<gggdf>> sd <<hhhfd>> d" "<<ddd>>"
+
+In this example we extract numbers, strip out non-digits, coerce them to
+numeric, cut them in half, round up to the closest integer, add the
+commas back, and replace back into the original locations.
+
+    fgsub(
+        x = c(NA, 'I want 32 grapes', 'he wants 4 ice creams', 'they want 1,234,567 dollars'),
+        pattern = "[\\d,]+",
+        fun = function(x) {prettyNum(ceiling(as.numeric(gsub('[^0-9]', '', x))/2), big.mark = ',')}
+    )
+
+    ## [1] NA                          "I want 16 grapes"         
+    ## [3] "he wants 2 ice creams"     "they want 617,284 dollars"
 
 ### Stashing Character Pre-Sub
 
@@ -819,31 +974,31 @@ punctuation, and last put the stashed emoticons back.
 
     (m <- sub_holder(fake_dat, hash_emoticons[[1]]))
 
-    ##  [1] "zzzplaceholderazzz Computer is fun. Not too fun."        
-    ##  [2] "zzzplaceholderbzzz No it's not, it's dumb."              
-    ##  [3] "zzzplaceholderczzz What should we do?"                   
-    ##  [4] "zzzplaceholderdzzz You liar, it stinks!"                 
-    ##  [5] "zzzplaceholderezzz I am telling the truth!"              
-    ##  [6] "zzzplaceholderfzzz How can we be certain?"               
-    ##  [7] "zzzplaceholdergzzz There is no way."                     
-    ##  [8] "zzzplaceholderhzzz I distrust you."                      
-    ##  [9] "zzzplaceholderizzz What are you talking about?"          
-    ## [10] "zzzplaceholderjzzz Shall we move on?  Good then."        
-    ## [11] "zzzplaceholderkzzz I'm hungry.  Let's eat.  You already?"
+    ##  [1] "zzzplaceholderaazzz Computer is fun. Not too fun."        
+    ##  [2] "zzzplaceholderbazzz No it's not, it's dumb."              
+    ##  [3] "zzzplaceholdercazzz What should we do?"                   
+    ##  [4] "zzzplaceholderdazzz You liar, it stinks!"                 
+    ##  [5] "zzzplaceholdereazzz I am telling the truth!"              
+    ##  [6] "zzzplaceholderfazzz How can we be certain?"               
+    ##  [7] "zzzplaceholdergazzz There is no way."                     
+    ##  [8] "zzzplaceholderhazzz I distrust you."                      
+    ##  [9] "zzzplaceholderiazzz What are you talking about?"          
+    ## [10] "zzzplaceholderjazzz Shall we move on?  Good then."        
+    ## [11] "zzzplaceholderkazzz I'm hungry.  Let's eat.  You already?"
 
     (m_stripped <-strip(m$output))
 
-    ##  [1] "zzzplaceholderazzz computer is fun not too fun"     
-    ##  [2] "zzzplaceholderbzzz no it's not it's dumb"           
-    ##  [3] "zzzplaceholderczzz what should we do"               
-    ##  [4] "zzzplaceholderdzzz you liar it stinks"              
-    ##  [5] "zzzplaceholderezzz i am telling the truth"          
-    ##  [6] "zzzplaceholderfzzz how can we be certain"           
-    ##  [7] "zzzplaceholdergzzz there is no way"                 
-    ##  [8] "zzzplaceholderhzzz i distrust you"                  
-    ##  [9] "zzzplaceholderizzz what are you talking about"      
-    ## [10] "zzzplaceholderjzzz shall we move on good then"      
-    ## [11] "zzzplaceholderkzzz i'm hungry let's eat you already"
+    ##  [1] "zzzplaceholderaazzz computer is fun not too fun"     
+    ##  [2] "zzzplaceholderbazzz no it's not it's dumb"           
+    ##  [3] "zzzplaceholdercazzz what should we do"               
+    ##  [4] "zzzplaceholderdazzz you liar it stinks"              
+    ##  [5] "zzzplaceholdereazzz i am telling the truth"          
+    ##  [6] "zzzplaceholderfazzz how can we be certain"           
+    ##  [7] "zzzplaceholdergazzz there is no way"                 
+    ##  [8] "zzzplaceholderhazzz i distrust you"                  
+    ##  [9] "zzzplaceholderiazzz what are you talking about"      
+    ## [10] "zzzplaceholderjazzz shall we move on good then"      
+    ## [11] "zzzplaceholderkazzz i'm hungry let's eat you already"
 
     m$unhold(m_stripped)
 
@@ -858,6 +1013,44 @@ punctuation, and last put the stashed emoticons back.
     ##  [9] "*\\0/* what are you talking about"    
     ## [10] "0:) shall we move on good then"       
     ## [11] "0:-) i'm hungry let's eat you already"
+
+Of course with clever regexes you can achieve the same thing:
+
+    ord_emos <- hash_emoticons[[1]][order(nchar(hash_emoticons[[1]]))]
+
+    ## This step ensures that longer strings are matched first but can 
+    ## fail in cases that use quantifiers.  These can appear short but in
+    ## reality can match long strings and would be ordered last in the 
+    ## replacement, meaning that the shorter regex took precedent.
+    emos <- paste(
+        gsub('([().\\|[{}^$*+?])', '\\\\\\1', ord_emos),
+        collapse = '|'
+    )
+
+    gsub(
+        sprintf('(%s)(*SKIP)(*FAIL)|[^\'[:^punct:]]', emos), 
+        '', 
+        fake_dat, 
+        perl = TRUE
+    )
+
+    ##  [1] "#-) Computer is fun Not too fun"        
+    ##  [2] "%) No it's not it's dumb"               
+    ##  [3] "%-) What should we do"                  
+    ##  [4] "',:-l You liar it stinks"               
+    ##  [5] "',:-| I am telling the truth"           
+    ##  [6] "*) How can we be certain"               
+    ##  [7] "*-) There is no way"                    
+    ##  [8] "*<|:-) I distrust you"                  
+    ##  [9] "*\\0/* What are you talking about"      
+    ## [10] "0:) Shall we move on  Good then"        
+    ## [11] "0:-) I'm hungry  Let's eat  You already"
+
+The pure regex approach can be a bit trickier (less safe) and more
+difficult to reason about. It also relies on the less general
+`(*SKIP)(*FAIL)` backtracking control verbs that are only implemented in
+a few applications like Perl & PCRE. Still, it's nice to see an
+alternative regex approach for comparison.
 
 Replacement
 -----------
@@ -913,7 +1106,7 @@ forms equivalents.
 
     x
 
-    ## [1] "Hello, helpful! ðŸ“¦âŒðŸ‘¾ debugme: Easy & efficient debugging for R packages ðŸ‘¨ðŸ»â€ðŸ’» @GaborCsardi https://buff.ly/2nNKcps  #rstats"
+    ## [1] "Hello, helpful! ðŸ“¦â\235ŒðŸ‘¾ debugme: Easy & efficient debugging for R packages ðŸ‘¨ðŸ\217»â\200\215ðŸ’» @GaborCsardi https://buff.ly/2nNKcps  #rstats"
     ## [2] "Did you ever get bored and accidentally create a ðŸ“¦ to make #Rstats speak on a Mac? I have -> "                                            
     ## [3] "A gift to my fellow nfl loving #rstats folks this package is ðŸ’¥ðŸ’¥"
 
@@ -1331,21 +1524,21 @@ This example shows a use case for `replace_token`:
     x$text.var <- paste0(x$text.var, sample(c('.', '!', '?'), length(x$text.var), TRUE))
     head(x$text.var)
 
-    ## [1] "Verlie concussion frizettes Paulita uniform linoleums Corine Sixta besmudging Iona Sheridan running?"               
-    ## [2] "japanizes unthroning Maira hammer sagacious probes Reed Cherry briskness mates mainlined breeks."                   
-    ## [3] "aperies portentous wooding Kathy Judi steamered tate Adella Renaldo Branden creeps tuftily."                        
-    ## [4] "Angila Gilberte Ilana repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
-    ## [5] "froggiest foodless marblers outturn alienation marmalade Luther Audry disaffections katine madding Donetta?"        
-    ## [6] "limens Mitchell dean Karena schemer stabbers Grisel brazenly Jaime memorandums Annie Sindy."
+    ## [1] "oothecae clotty Towanda newsier maestros Richie prophetesses savvying bulldozed boccies lordings invigorates!"
+    ## [2] "moating gourde exacta echinoids polynyas rottennesses Jolene Sylvia trish polluting Carolyn suaver?"          
+    ## [3] "Vince superimposed halakah cabochon wencher Dortha Natalya Francisca India Milagro metalworks Krissy."        
+    ## [4] "Phylis unscrupulously capstones Marcellus Neville snottier haling rejectees mome cottony lonelinesses sneaky!"
+    ## [5] "accouter contemplated presentable interest Rivka Ozell scows eyeletting mote apodal ac depurated!"            
+    ## [6] "Jani vicugnas fodders galoshes clown biggies arlinda bescorches geothermal inducement selflessnesses spriggy!"
 
     head(replace_tokens(x$text.var, nms, 'NAME'))
 
-    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
-    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
-    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
-    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
-    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
-    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
+    ## [1] "oothecae clotty NAME newsier maestros NAME prophetesses savvying bulldozed boccies lordings invigorates!"     
+    ## [2] "moating gourde exacta echinoids polynyas rottennesses NAME NAME trish polluting NAME suaver?"                 
+    ## [3] "NAME superimposed halakah cabochon wencher NAME NAME NAME NAME NAME metalworks NAME."                         
+    ## [4] "NAME unscrupulously capstones NAME NAME snottier haling rejectees mome cottony lonelinesses sneaky!"          
+    ## [5] "accouter contemplated presentable interest NAME NAME scows eyeletting mote apodal ac depurated!"              
+    ## [6] "NAME vicugnas fodders galoshes clown biggies arlinda bescorches geothermal inducement selflessnesses spriggy!"
 
 This demonstration shows how fast token replacement can be with
 `replace_token`:
@@ -1354,40 +1547,40 @@ This demonstration shows how fast token replacement can be with
     tic <- Sys.time()
     head(mgsub(x$text.var, nms, "NAME"))
 
-    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
-    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
-    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
-    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
-    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
-    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
+    ## [1] "oothecae clotty NAME newsier maestros NAME prophetesses savvying bulldozed boccies lordings invigorates!"     
+    ## [2] "moating gourde exacta echinoids polynyas rottennesses NAME NAME trish polluting NAME suaver?"                 
+    ## [3] "NAME superimposed halakah cabochon wencher NAME NAME NAME NAME NAME metalworks NAME."                         
+    ## [4] "NAME unscrupulously capstones NAME NAME snottier haling rejectees mome cottony lonelinesses sneaky!"          
+    ## [5] "accouter contemplated presentable interest NAME NAME scows eyeletting mote apodal ac depurated!"              
+    ## [6] "NAME vicugnas fodders galoshes clown biggies arlinda bescorches geothermal inducement selflessnesses spriggy!"
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 8.532315 secs
+    ## Time difference of 8.119677 secs
 
     ## replace_tokens
     tic <- Sys.time()
     head(replace_tokens(x$text.var, nms, "NAME"))
 
-    ## [1] "NAME concussion frizettes NAME uniform linoleums NAME NAME besmudging NAME NAME running?"                    
-    ## [2] "japanizes unthroning NAME hammer sagacious probes NAME NAME briskness mates mainlined breeks."               
-    ## [3] "aperies portentous wooding NAME NAME steamered tate NAME NAME NAME creeps tuftily."                          
-    ## [4] "NAME NAME NAME repressurizing antimonies reigning desperadoes subideas meteorologies xenia unamused crudest."
-    ## [5] "froggiest foodless marblers outturn alienation marmalade NAME NAME disaffections katine madding NAME?"       
-    ## [6] "limens NAME dean NAME schemer stabbers NAME brazenly NAME memorandums NAME NAME."
+    ## [1] "oothecae clotty NAME newsier maestros NAME prophetesses savvying bulldozed boccies lordings invigorates!"     
+    ## [2] "moating gourde exacta echinoids polynyas rottennesses NAME NAME trish polluting NAME suaver?"                 
+    ## [3] "NAME superimposed halakah cabochon wencher NAME NAME NAME NAME NAME metalworks NAME."                         
+    ## [4] "NAME unscrupulously capstones NAME NAME snottier haling rejectees mome cottony lonelinesses sneaky!"          
+    ## [5] "accouter contemplated presentable interest NAME NAME scows eyeletting mote apodal ac depurated!"              
+    ## [6] "NAME vicugnas fodders galoshes clown biggies arlinda bescorches geothermal inducement selflessnesses spriggy!"
 
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 0.06699586 secs
+    ## Time difference of 0.06850314 secs
 
 Now let's amp it up with 20x more text data. That's 50,000 rows of text
-(600,120 words) and 5,493 replacement tokens in 1.6 seconds.
+(600,080 words) and 5,493 replacement tokens in 1.5 seconds.
 
     tic <- Sys.time()
     out <- replace_tokens(rep(x$text.var, 20), nms, "NAME")
     (toc <- Sys.time() - tic)
 
-    ## Time difference of 1.596291 secs
+    ## Time difference of 1.512028 secs
 
 ### White Space
 

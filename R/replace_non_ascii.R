@@ -3,6 +3,8 @@
 #' \code{replace_non_ascii} - Replaces common non-ASCII characters.
 #' 
 #' @param x The text variable.
+#' @param replacement Character string equal in length to pattern or of length 
+#' one which are a replacement for matched pattern. 
 #' @param remove.nonconverted logical.  If \code{TRUE} unmapped encodings are
 #' deleted from the string.
 #' @param \dots ignored.
@@ -14,8 +16,8 @@
 #' @examples
 #' x <- c(
 #'     "Hello World", "6 Ekstr\xf8m", "J\xf6reskog", "bi\xdfchen Z\xfcrcher",
-#'     'This is a \xA9 but not a \xAE', '6 \xF7 2 = 3', 'fractions \xBC, \xBD, \xBE',
-#'     'cows go \xB5', '30\xA2'
+#'     'This is a \xA9 but not a \xAE', '6 \xF7 2 = 3', 
+#'     'fractions \xBC, \xBD, \xBE', 'cows go \xB5', '30\xA2'
 #' )
 #' Encoding(x) <- "latin1"
 #' x
@@ -29,19 +31,39 @@
 #' 
 #' replace_curly_quote(z)
 #' replace_non_ascii(z)
-replace_non_ascii <- function(x, remove.nonconverted = TRUE, ...) {
+replace_non_ascii <- function (x, replacement = '',  
+    remove.nonconverted = TRUE, ...) {
+    
     x <- replace_curly_quote(x)
     x <- stringi::stri_trans_general(x, "latin-ascii")
     x <- iconv(as.character(x), "", "ASCII", "byte")
-    Encoding(x) <-"latin1"    
+    Encoding(x) <- "latin1"
     x <- mgsub(x, ser, reps)
-    if (isTRUE(remove.nonconverted)) x <- qdapRegex::rm_angle(x)
+    
+    if (isTRUE(remove.nonconverted)) {
+        x <- qdapRegex::rm_angle(x, replacement = replacement)
+        x <- stringi::stri_replace_all_regex(x, '[^ -~]+', 
+            replacement = replacement)
+    }
+    
     x
+    
 }
+
+
+# replace_non_ascii <- function(x, remove.nonconverted = TRUE, ...) {
+#     x <- replace_curly_quote(x)
+#     x <- stringi::stri_trans_general(x, "latin-ascii")
+#     x <- iconv(as.character(x), "", "ASCII", "byte")
+#     Encoding(x) <-"latin1"    
+#     x <- mgsub(x, ser, reps)
+#     if (isTRUE(remove.nonconverted)) x <- qdapRegex::rm_angle(x)
+#     x
+# }
 
 #' Replace Common Non-ASCII Characters
 #' 
-#' \code{replace_curly_quote} - Replaces curly single and doble quotes.  This 
+#' \code{replace_curly_quote} - Replaces curly single and double quotes.  This 
 #' provides a subset of functionality found in \code{replace_non_ascii} specific 
 #' to quotes.
 #' 
@@ -63,5 +85,7 @@ ser <- c("<e2><80><9c>", "<e2><80><9d>", "<e2><80><98>", "<e2><80><99>",
     )
 
 reps <- c('"', '"', "'", "'", "'", "'", '...', '-', '-', "a", "e", "1/2", 
-    ' copyright ', ' registered trademark ', "/", '1/2', '1/4', '3/4', ' mu ', ' cent ')
+    ' copyright ', ' registered trademark ', "/", '1/2', '1/4', '3/4', ' mu ', 
+    ' cent '
+)
 

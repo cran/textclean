@@ -5,12 +5,15 @@
 \alias{replace_curly_quote}
 \title{Replace Common Non-ASCII Characters}
 \usage{
-replace_non_ascii(x, remove.nonconverted = TRUE, ...)
+replace_non_ascii(x, replacement = "", remove.nonconverted = TRUE, ...)
 
 replace_curly_quote(x, ...)
 }
 \arguments{
 \item{x}{The text variable.}
+
+\item{replacement}{Character string equal in length to pattern or of length 
+one which are a replacement for matched pattern.}
 
 \item{remove.nonconverted}{logical.  If \code{TRUE} unmapped encodings are
 deleted from the string.}
@@ -24,15 +27,15 @@ replaced.
 \description{
 \code{replace_non_ascii} - Replaces common non-ASCII characters.
 
-\code{replace_curly_quote} - Replaces curly single and doble quotes.  This 
+\code{replace_curly_quote} - Replaces curly single and double quotes.  This 
 provides a subset of functionality found in \code{replace_non_ascii} specific 
 to quotes.
 }
 \examples{
 x <- c(
     "Hello World", "6 Ekstr\\xf8m", "J\\xf6reskog", "bi\\xdfchen Z\\xfcrcher",
-    'This is a \\xA9 but not a \\xAE', '6 \\xF7 2 = 3', 'fractions \\xBC, \\xBD, \\xBE',
-    'cows go \\xB5', '30\\xA2'
+    'This is a \\xA9 but not a \\xAE', '6 \\xF7 2 = 3', 
+    'fractions \\xBC, \\xBD, \\xBE', 'cows go \\xB5', '30\\xA2'
 )
 Encoding(x) <- "latin1"
 x
