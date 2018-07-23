@@ -1,6 +1,6 @@
-2914647ec457f2512b982b5c1db58765 *DESCRIPTION
-076e067c4fa12312ae31576f85b91bbf *NAMESPACE
-2afdb6970f52387c7d4bd148c48564d0 *NEWS
+25dc51f296e93edbe0edbc0087e1345c *DESCRIPTION
+17a2026e62cf4dbafd7b30700f840f91 *NAMESPACE
+d5da884bdf972b1b864ab76d59020d64 *NEWS
 8a78e3bba7ee4047ac1d0788c983b8d2 *R/add_comma_space.R
 a8d8fccb8bc5c16a28234b5799eb0b9d *R/add_missing_endmark.R
 01500f271ff19acfcff9e40cef6a3508 *R/check_text.R
@@ -10,7 +10,7 @@ a8d8fccb8bc5c16a28234b5799eb0b9d *R/add_missing_endmark.R
 b3e9f5488b8437ff60f177fc7ef8886b *R/fgsub.R
 69fe0e4ad987a2f53d7770340a73b547 *R/filter_element.R
 ffbb9b31ec17a4abb43d0cf80dcdcc15 *R/filter_row.R
-babe34a81b29fbbde51d34ad62b99e98 *R/glue-reexports.R
+f99038b4bb314630c2f4d30bbe812018 *R/glue-reexports.R
 51abb2bb445f75aa7fce0efd6bf4fce9 *R/has_endmark.R
 fc7280d1dc2a0b15ad9d3df17e41f2d0 *R/make_plural.R
 4e45b35bb5f85f449898ad6a022653e0 *R/match_tokens.R
@@ -34,7 +34,7 @@ bbcb06358b10ccc2dd7b260766fa6e2e *R/replace_money.R
 868f486b72a306420045f340a98b4d22 *R/replace_rating.R
 150d880dcc5938f26f0e4557a82f9805 *R/replace_symbol.R
 97bd268d6b93727f99059f81b5305b3a *R/replace_tag.R
-294f784948ef8120945df746b44c100e *R/replace_time.R
+39d7d7cca9767a82a13325fc5d017bd4 *R/replace_time.R
 a98846991d7370a609ef8012c6234fb1 *R/replace_to.R
 9cef34acbc9d535bc9a955cbad43c304 *R/replace_tokens.R
 4f7a49d47efd14d578064d0b9c611731 *R/replace_url.R
@@ -46,9 +46,9 @@ c6fd4950db1d057293a862393fce0990 *R/swap.R
 4997bb13a0a29ae7335425b2612505b0 *R/sysdata.rda
 2c6f4b1ef4fd20c7b95cdf2e1affd983 *R/textclean-package.R
 5570799ceb7abfa5a714621130854efd *R/utils.R
-8794caec142442b023327f5118128f1e *README.md
+98b5fe023990db4d83e4d86c3fc9b36c *README.md
 043954765a7bda03f997996f717edf21 *data/DATA.rda
-b6cfdda04b50a3bd7a36f9878160306c *inst/CITATION
+9704486ac664d52b60946494133b8e5e *inst/CITATION
 ad74fb117f45a9f92069d6a160868ec1 *inst/docs/emoji_sample.txt
 bf15ac048e7150e3b0aadf33bcf36a57 *inst/docs/r_tweets.txt
 efbaf9190b69fd1cbcaa73c19a5c7745 *man/DATA.Rd
@@ -67,7 +67,7 @@ d69412a706d432e68b11ca926f0429c1 *man/match_tokens.Rd
 a88dfcd164917b223e84791b60a259bf *man/print.check_text.Rd
 954c9a3838213d05465e590e08918d19 *man/print.sub_holder.Rd
 1444052099f6695938c6caef33ad135c *man/print.which_are_locs.Rd
-8ee7816abe695e39bbd33a329c9e8d29 *man/reexports.Rd
+8c11c8cb15adc0337d9baa6c610b896a *man/reexports.Rd
 73409a19c4967629cf72ab3dc1c23b35 *man/replace_contraction.Rd
 136253435a9bf2bbebcb814af73ac9a7 *man/replace_date.Rd
 e982a9a68f9334b72be4ac2c6a8b0132 *man/replace_email.Rd
@@ -87,7 +87,7 @@ aa5a72c2426740992367f1c18f6bd182 *man/replace_names.Rd
 ec8196d1911a7da8d54f6dbae9c143df *man/replace_rating.Rd
 da9c9dd08afacc29ada7a8a1595f69e1 *man/replace_symbol.Rd
 24ed5bb5960b60451efef1d11f944dfd *man/replace_tag.Rd
-46aecf4815cde68426bf678dc3bab5fd *man/replace_time.Rd
+735413a91143bfc417f100e623fd2c21 *man/replace_time.Rd
 bd8ffce3149f266822c8fc6a99c8db8d *man/replace_to.Rd
 5e39a2bfa623c421514b36c785f12a73 *man/replace_tokens.Rd
 9aa992a01b7f01213ac08798b21350c1 *man/replace_url.Rd
